@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Lucu Sanrio</title>
+    <style>
+        /* Background dan elemen dasar */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F7C8D4; /* Warna pink lembut */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #FF6B8B;
+            margin-bottom: 20px;
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-100px);
+            transition: opacity 1s, transform 1s;
+        }
+
+        .image-container img {
+            width: 150px;
+            border: 5px solid #FFB6C1;
+            border-radius: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        /* Bubble Chat */
+        .bubble-chat {
+            display: none;
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background-color: #FFF5E1;
+            padding: 15px;
+            border-radius: 30px;
+            text-align: center;
+            font-size: 1.2rem;
+            width: 300px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 1s, opacity 1s;
+            z-index: 10;
+        }
+
+        .bubble-chat::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid #FFF5E1;
+        }
+
+        /* Tombol Mulai */
+        .start-btn {
+            background-color: #FF6B8B;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .start-btn:hover {
+            background-color: #FF3E5A;
+        }
+
+        /* Animasi Gambar Jatuh dengan Efek Bounce */
+        .bounce {
+            animation: bounce 1s ease-in-out forwards;
+        }
+
+        @keyframes bounce {
+            0% {
+                transform: translateY(-200px);
+            }
+            50% {
+                transform: translateY(50px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Selamat Datang di Dunia Sanrio!</h1>
+
+        <!-- Foto Sanrio -->
+        <div class="image-container">
+            <img src="https://placekitten.com/200/300" alt="Sanrio 1">
+            <img src="https://placekitten.com/201/300" alt="Sanrio 2">
+            <img src="https://placekitten.com/202/300" alt="Sanrio 3">
+        </div>
+
+        <!-- Bubble Chat -->
+        <div class="bubble-chat" id="bubble-chat">
+            Halo! Selamat datang di situs Sanrio kami. Semoga kalian suka!
+        </div>
+
+        <!-- Tombol Mulai -->
+        <button class="start-btn" onclick="startAnimation()">Mulai</button>
+    </div>
+
+    <script>
+        // Fungsi untuk memulai animasi
+        function startAnimation() {
+            const images = document.querySelectorAll('.image-container img');
+            const bubbleChat = document.getElementById('bubble-chat');
+            const imageContainer = document.querySelector('.image-container');
+            
+            // Efek gambar jatuh dan animasi bounce
+            images.forEach((img, index) => {
+                setTimeout(() => {
+                    img.classList.add('bounce');
+                }, index * 300); // Gambar jatuh secara berurutan
+            });
+
+            // Tampilkan gambar setelah animasi selesai
+            setTimeout(() => {
+                imageContainer.style.opacity = 1;
+                imageContainer.style.transform = 'translateY(0)';
+            }, 1000);
+
+            // Tampilkan bubble chat dengan animasi
+            setTimeout(() => {
+                bubbleChat.style.display = 'block';
+                bubbleChat.style.transform = 'translateX(-50%) scale(1)';
+                bubbleChat.style.opacity = '1';
+            }, 1500);
+        }
+    </script>
+
+</body>
+</html>
